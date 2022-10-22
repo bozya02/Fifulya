@@ -7,40 +7,36 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Orange" SecondaryColor="Red" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Orange.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <Style TargetType="Grid">
-                <Setter Property="Background" Value="#FFFFFF"/>
+            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+                <Setter Property="Margin" Value="20 0"/>
             </Style>
 
-            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-                <Setter Property="Margin" Value="10"/>
-                <Setter Property="MinHeight" Value="50"/>
+            <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignPasswordBox}">
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+                <Setter Property="Margin" Value="20 0"/>
             </Style>
 
             <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="FontSize" Value="24"/>
             </Style>
 
-            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="24"/>
-                <Setter Property="Padding" Value="0"/>
+            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="MinHeight" Value="50"/>
             </Style>
 
             <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="MinWidth" Value="150"/>
-            </Style>
-
-            <Style TargetType="ListView" BasedOn="{StaticResource MaterialDesignCardsListBox}">
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="Margin" Value="20 0"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

@@ -79,11 +79,18 @@
     <Compile Include="DB\Agent.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\ProductPartial.cs" />
     <Compile Include="DB\ProductSale.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Sale.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AuthorizationPage.xaml.cs">
+      <DependentUpon>AuthorizationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RegistrationPage.xaml.cs">
+      <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\EditPriceWindow.xaml.cs">
       <DependentUpon>EditPriceWindow.xaml</DependentUpon>
@@ -138,6 +145,10 @@
       <DependentUpon>FifulyaWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AuthorizationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ProductPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -145,6 +156,10 @@
     <Page Include="Pages\ProductsListPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\RegistrationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\EditPriceWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

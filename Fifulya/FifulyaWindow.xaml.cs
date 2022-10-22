@@ -26,7 +26,7 @@ namespace Fifulya
         {
             InitializeComponent();
             frame.Navigated += Frame_Navigated;
-            frame.NavigationService.Navigate(new ProductsListPage());
+            frame.NavigationService.Navigate(new AuthorizationPage());
         }
 
         private void Frame_Navigated(object sender, NavigationEventArgs e)
@@ -35,10 +35,28 @@ namespace Fifulya
             pageTitle = (pageContent as Page).Title;
             tbTitle.Text = pageTitle;
 
-            btnGoBack.Visibility = pageContent is ProductPage ? Visibility.Visible : Visibility.Hidden;
+            if (pageContent is AuthorizationPage)
+                spButtons.Visibility = Visibility.Hidden;
+            else if (pageContent is RegistrationPage)
+            {
+                spButtons.Visibility = Visibility.Visible;
+                btnGoForward.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                spButtons.Visibility = Visibility.Visible;
+                btnGoForward.Visibility = Visibility.Visible;
+                btnGoBack.Visibility = Visibility.Visible;
+            }
         }
 
         private void btnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (frame.CanGoBack)
+                frame.GoBack();
+        }
+
+        private void btnGoForward_Click(object sender, RoutedEventArgs e)
         {
             if (frame.CanGoBack)
                 frame.GoBack();

@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Fifulya"
         mc:Ignorable="d"
         Title="Фифуля"
-        Height="650" Width="1200"
-        MinHeight="650" MinWidth="1200">
+        Height="650" Width="920"
+        MinHeight="650" MinWidth="920">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -23,8 +23,10 @@
 
             <Image Source="/Resources/logo.png" Grid.Column="0"/>
             <TextBlock x:Name="tbTitle" Text="{Binding pageTitle}" Grid.Column="1" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-            <Button x:Name="btnGoBack" Content="Назад" Grid.ColumnSpan="3" HorizontalAlignment="Right" Margin="10" FontSize="20" Visibility="Hidden" Click="btnGoBack_Click"/>
+            <StackPanel x:Name="spButtons" Grid.ColumnSpan="3" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button x:Name="btnGoBack" Content="Назад" Margin="10 0" FontSize="20" Click="btnGoBack_Click"/>
+                <Button x:Name="btnGoForward" Content="Вперед" Margin="10 0" FontSize="20" Click="btnGoForward_Click"/>
+            </StackPanel>
         </Grid>
 
         <Frame x:Name="frame" Grid.Row="1" NavigationUIVisibility="Hidden"/>

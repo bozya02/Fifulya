@@ -10,7 +10,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="80" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="80" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="80" />
+          <Property Name="UserId" Type="int" />
         </EntityType>
         <EntityType Name="Material">
           <Key>
@@ -45,6 +47,7 @@
           <Property Name="WorkshopId" Type="int" />
           <Property Name="Image" Type="varbinary(max)" />
           <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductMaterial">
           <Key>
@@ -79,12 +82,30 @@
           <Property Name="Date" Type="date" />
           <Property Name="AgentId" Type="int" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Unit">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="30" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Workshop">
           <Key>
@@ -93,6 +114,18 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Agent_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Agent" Type="Self.Agent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agent">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Material_MaterialType">
           <End Role="MaterialType" Type="Self.MaterialType" Multiplicity="0..1" />
           <End Role="Material" Type="Self.Material" Multiplicity="*" />
@@ -154,9 +187,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductMaterial_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="ProductMaterial" Type="Self.ProductMaterial" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -212,8 +243,14 @@
           <EntitySet Name="ProductSale" EntityType="Self.ProductSale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Workshop" EntityType="Self.Workshop" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Agent_User" Association="Self.FK_Agent_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Agent" EntitySet="Agent" />
+          </AssociationSet>
           <AssociationSet Name="FK_Material_MaterialType" Association="Self.FK_Material_MaterialType">
             <End Role="MaterialType" EntitySet="MaterialType" />
             <End Role="Material" EntitySet="Material" />
@@ -264,8 +301,14 @@
           <EntitySet Name="ProductSales" EntityType="FifulyaModel.ProductSale" />
           <EntitySet Name="ProductTypes" EntityType="FifulyaModel.ProductType" />
           <EntitySet Name="Sales" EntityType="FifulyaModel.Sale" />
+          <EntitySet Name="sysdiagrams" EntityType="FifulyaModel.sysdiagram" />
           <EntitySet Name="Units" EntityType="FifulyaModel.Unit" />
+          <EntitySet Name="Users" EntityType="FifulyaModel.User" />
           <EntitySet Name="Workshops" EntityType="FifulyaModel.Workshop" />
+          <AssociationSet Name="FK_Agent_User" Association="FifulyaModel.FK_Agent_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Agent" EntitySet="Agents" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sale_Agent" Association="FifulyaModel.FK_Sale_Agent">
             <End Role="Agent" EntitySet="Agents" />
             <End Role="Sale" EntitySet="Sales" />
@@ -308,7 +351,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="FifulyaModel.FK_Agent_User" FromRole="Agent" ToRole="User" />
           <NavigationProperty Name="Sales" Relationship="FifulyaModel.FK_Sale_Agent" FromRole="Agent" ToRole="Sale" />
         </EntityType>
         <EntityType Name="Material">
@@ -348,6 +394,7 @@
           <Property Name="WorkshopId" Type="Int32" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ProductType" Relationship="FifulyaModel.FK_Product_ProductType" FromRole="Product" ToRole="ProductType" />
           <NavigationProperty Name="Workshop" Relationship="FifulyaModel.FK_Product_Workshop" FromRole="Product" ToRole="Workshop" />
           <NavigationProperty Name="ProductMaterials" Relationship="FifulyaModel.FK_ProductMaterial_Product" FromRole="Product" ToRole="ProductMaterial" />
@@ -393,6 +440,16 @@
           <NavigationProperty Name="Agent" Relationship="FifulyaModel.FK_Sale_Agent" FromRole="Sale" ToRole="Agent" />
           <NavigationProperty Name="ProductSales" Relationship="FifulyaModel.FK_ProductSale_Sale" FromRole="Sale" ToRole="ProductSale" />
         </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="Unit">
           <Key>
             <PropertyRef Name="Id" />
@@ -400,6 +457,15 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Materials" Relationship="FifulyaModel.FK_Material_Unit" FromRole="Unit" ToRole="Material" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Agents" Relationship="FifulyaModel.FK_Agent_User" FromRole="User" ToRole="Agent" />
         </EntityType>
         <EntityType Name="Workshop">
           <Key>
@@ -409,6 +475,18 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Products" Relationship="FifulyaModel.FK_Product_Workshop" FromRole="Workshop" ToRole="Product" />
         </EntityType>
+        <Association Name="FK_Agent_User">
+          <End Type="FifulyaModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="FifulyaModel.Agent" Role="Agent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agent">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sale_Agent">
           <End Type="FifulyaModel.Agent" Role="Agent" Multiplicity="0..1" />
           <End Type="FifulyaModel.Sale" Role="Sale" Multiplicity="*" />
@@ -482,9 +560,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductMaterial_Product">
-          <End Type="FifulyaModel.Product" Role="Product" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="FifulyaModel.Product" Role="Product" Multiplicity="1" />
           <End Type="FifulyaModel.ProductMaterial" Role="ProductMaterial" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -519,7 +595,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -528,7 +604,9 @@
           <EntitySetMapping Name="Agents">
             <EntityTypeMapping TypeName="FifulyaModel.Agent">
               <MappingFragment StoreEntitySet="Agent">
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -558,6 +636,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="FifulyaModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="WorkshopId" ColumnName="WorkshopId" />
@@ -607,10 +686,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="FifulyaModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Units">
             <EntityTypeMapping TypeName="FifulyaModel.Unit">
               <MappingFragment StoreEntitySet="Unit">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="FifulyaModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

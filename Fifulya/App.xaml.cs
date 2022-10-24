@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fifulya.DB;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,6 @@ namespace Fifulya
     /// </summary>
     public partial class App : Application
     {
+        public static Agent Agent { get; set; }
     }
 }

@@ -15,23 +15,34 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="tbLogin" Grid.Row="0" FontSize="30"
+        <TextBox x:Name="tbFirstName" Grid.Row="0" FontSize="30"
+                 Margin="200 0"
+                 materialDesign:HintAssist.Hint="Имя"
+                 materialDesign:HintAssist.IsFloating="True"/>
+        <TextBox x:Name="tbLastName" Grid.Row="1" FontSize="30"
+                 Margin="200 0"
+                 materialDesign:HintAssist.Hint="Фамилия"
+                 materialDesign:HintAssist.IsFloating="True"/>
+        
+        <TextBox x:Name="tbLogin" Grid.Row="2" FontSize="30"
                  Margin="200 0"
                  materialDesign:HintAssist.Hint="Логин"
                  materialDesign:HintAssist.IsFloating="True"/>
 
-        <PasswordBox x:Name="pbPassword" Grid.Row="1" FontSize="30"
-                 Margin="200 0"
-                 materialDesign:HintAssist.Hint="Пароль"
-                 materialDesign:HintAssist.IsFloating="True"/>
+        <PasswordBox x:Name="pbPassword" Grid.Row="3" FontSize="30"
+                     Margin="200 0"
+                     materialDesign:HintAssist.Hint="Пароль"
+                     materialDesign:HintAssist.IsFloating="True"/>
 
-        <PasswordBox x:Name="pbSecondPassword" Grid.Row="2" FontSize="30"
-                 Margin="200 0"
-                 materialDesign:HintAssist.Hint="Повторите пароль"
-                 materialDesign:HintAssist.IsFloating="True"/>
+        <PasswordBox x:Name="pbSecondPassword" Grid.Row="4" FontSize="30"
+                     Margin="200 0"
+                     materialDesign:HintAssist.Hint="Повторите пароль"
+                     materialDesign:HintAssist.IsFloating="True"/>
         
-        <Button x:Name="btnRegistration" Content="Регистрация" Margin="10 0" Click="btnRegistration_Click" Grid.Row="3" HorizontalAlignment="Center"/>
+        <Button x:Name="btnRegistration" Content="Регистрация" Margin="10 0" Click="btnRegistration_Click" Grid.Row="5" HorizontalAlignment="Center"/>
     </Grid>
 </Page>

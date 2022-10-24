@@ -30,6 +30,7 @@ namespace Fifulya.DB
         public Nullable<int> WorkshopId { get; set; }
         public byte[] Image { get; set; }
         public string Description { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual ProductType ProductType { get; set; }
         public virtual Workshop Workshop { get; set; }

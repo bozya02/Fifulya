@@ -53,6 +53,7 @@ namespace Fifulya.Pages
             this.DataContext = this;
             DataAccess.NewItemAddedEvent += DataAccess_NewItemAddedEvent;
             GeneratePageNumbers();
+            btnAddProduct.Visibility = DataAccess.IsAdmin(App.Agent.User) ? Visibility.Visible : Visibility.Hidden;
         }
 
         private void DataAccess_NewItemAddedEvent()
@@ -160,7 +161,7 @@ namespace Fifulya.Pages
 
         private void lvProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {   
-            btnEditPrice.Visibility = lvProducts.SelectedItems == null ? Visibility.Hidden : Visibility.Visible;
+            btnEditPrice.Visibility = lvProducts.SelectedItems == null || !DataAccess.IsAdmin(App.Agent.User) ? Visibility.Hidden : Visibility.Visible;
         }
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)

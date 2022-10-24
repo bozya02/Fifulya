@@ -47,8 +47,7 @@ namespace Fifulya.Pages
 
             this.DataContext = this;
 
-            if (product.ProductSales != null)
-                btnDelete.Visibility = Visibility.Hidden;
+            grid.IsEnabled = DataAccess.IsAdmin(App.Agent.User);
         }
 
         private void cbMaterial_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -67,6 +66,9 @@ namespace Fifulya.Pages
         {
             var material = lvMaterials.SelectedItem as ProductMaterial;
 
+            var result = MessageBox.Show($"Вы точно хотите убрать {material.Material.Name}?", "Внимание", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+            if (result != MessageBoxResult.Yes)
+                return;
             Product.ProductMaterials.Remove(material);
 
             lvMaterials.ItemsSource = Product.ProductMaterials;

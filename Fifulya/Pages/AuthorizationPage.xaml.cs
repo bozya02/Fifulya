@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fifulya.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,12 +28,26 @@ namespace Fifulya.Pages
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ProductsListPage());
+            Login();
         }
 
         private void btnRegistration_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new RegistrationPage());
+        }
+
+        private void pbPassword_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                Login();
+        }
+
+        private void Login()
+        {
+            if ((App.Agent = DataAccess.UserLogin(tbLogin.Text, pbPassword.Password)) != null)
+                NavigationService.Navigate(new ProductsListPage());
+            else
+                MessageBox.Show("Неверный логин и/или пароль", "Ошибка", MessageBoxButton.OKCancel, MessageBoxImage.Error);
         }
     }
 }

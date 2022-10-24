@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fifulya.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,48 @@ namespace Fifulya.Pages
 
         private void btnRegistration_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            var login = tbLogin.Text;
+
+            if (!DataAccess.IsUniqueLogin(login))
+            {
+                MessageBox.Show("Данный логин занят", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (pbPassword.Password != pbSecondPassword.Password)
+            {
+                MessageBox.Show("Пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (tbFirstName.Text == "" || tbLastName.Text == "" ||
+                tbLogin.Text == "" || pbPassword.Password == "")
+            {
+                MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            Agent agent = new Agent
+            {
+                FirstName = tbFirstName.Text,
+                LastName = tbLastName.Text,
+                User = new User
+                {
+                    Login = tbLogin.Text,
+                    Password = pbPassword.Password
+                }
+            };
+
+            try
+            {
+                DataAccess.SaveAgent(agent);
+                NavigationService.GoBack();
+            }
+            catch
+            {
+                MessageBox.Show("Регистрация не удалась","Ошибка",MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
     }
 }

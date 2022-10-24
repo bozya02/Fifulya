@@ -21,9 +21,10 @@
                  materialDesign:HintAssist.IsFloating="True"/>
 
         <PasswordBox x:Name="pbPassword" Grid.Row="1" FontSize="30"
-                 Margin="200 0"
-                 materialDesign:HintAssist.Hint="Пароль"
-                 materialDesign:HintAssist.IsFloating="True"/>
+                     Margin="200 0"
+                     PreviewKeyDown="pbPassword_PreviewKeyDown"
+                     materialDesign:HintAssist.Hint="Пароль"
+                     materialDesign:HintAssist.IsFloating="True"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <Button x:Name="btnLogin" Content="Войти" Margin="10 0" Click="btnLogin_Click"/>

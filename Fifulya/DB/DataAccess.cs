@@ -20,6 +20,7 @@ namespace Fifulya.DB
         public static List<MaterialType> GetMaterialTypes() => FifulyaEntities.GetContext().MaterialTypes.ToList();
         public static List<Workshop> GetWorkshops() => FifulyaEntities.GetContext().Workshops.ToList();
         public static List<Sale> GetSales() => FifulyaEntities.GetContext().Sales.ToList();
+        public static List<Sale> GetSales(Agent agent) => FifulyaEntities.GetContext().Sales.ToList().FindAll(s => s.Agent == agent);
         public static List<User> GetUsers() => FifulyaEntities.GetContext().Users.ToList();
         public static List<Agent> GetAgents() => FifulyaEntities.GetContext().Agents.ToList();
 
@@ -53,5 +54,14 @@ namespace Fifulya.DB
         public static Agent UserLogin(string login, string password) => GetAgents().Find(x => x.User.Login == login && x.User.Password == password);
 
         public static bool IsAdmin(User user) => user.Login == user.Password && user.Login == "admin";
+
+        public static void SaveSale(Sale sale)
+        {
+            if (sale.Id == 0)
+                FifulyaEntities.GetContext().Sales.Add(sale);
+
+            FifulyaEntities.GetContext().SaveChanges();
+            NewItemAddedEvent?.Invoke();
+        }
     }
 }

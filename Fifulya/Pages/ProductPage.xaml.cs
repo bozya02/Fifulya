@@ -36,7 +36,7 @@ namespace Fifulya.Pages
             Workshops = DataAccess.GetWorkshops();
             ProductTypes = DataAccess.GetProductTypes();
             Materials = DataAccess.GetMaterials();
-
+            
             Title = Product.Name;
 
             if (isNewProduct)

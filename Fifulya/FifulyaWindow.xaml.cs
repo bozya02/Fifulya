@@ -58,8 +58,8 @@ namespace Fifulya
 
         private void btnGoForward_Click(object sender, RoutedEventArgs e)
         {
-            if (frame.CanGoBack)
-                frame.GoBack();
+            if (frame.CanGoForward)
+                frame.GoForward();
         }
     }
 }

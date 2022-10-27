@@ -21,6 +21,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="0.4*"/>
             </Grid.ColumnDefinitions>
 
             <TextBox x:Name="tbSearch" Grid.Column="0"
@@ -51,6 +52,8 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+
+            <Button x:Name="btnSales" Content="Покупки" Grid.Column="3" FontSize="20" Click="btnSales_Click"/>
         </Grid>
 
         <ListView x:Name="lvProducts" ItemsSource="{Binding FilteredProducts}" Grid.Row="1" HorizontalContentAlignment="Stretch"

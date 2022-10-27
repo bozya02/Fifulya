@@ -185,5 +185,10 @@ namespace Fifulya.Pages
             if (result.Value)
                 MessageBox.Show("Цены успешно обновлены", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        private void btnSales_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new SalesPage());
+        }
     }
 }

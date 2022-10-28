@@ -42,7 +42,7 @@
                 <GridView>
                     <GridView.Columns>
                         <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Product.Name}"/>
-                        <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Product.MinPrice, StringFormat={}0 руб.}"/>
+                        <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Product.MinPrice, StringFormat={}{0} руб.}"/>
                         <GridViewColumn Header="Количество">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -50,12 +50,12 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Cost, StringFormat={}0 руб.}"/>
+                        <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Cost, StringFormat={}{0} руб.}"/>
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <TextBlock Grid.Row="2" Margin="10" Text="{Binding Sale.Cost, StringFormat={}Итого: 0 руб.}"/>
+        <TextBlock Grid.Row="2" Margin="10" Text="{Binding Sale.Cost, StringFormat={}Итого: {0} руб.}"/>
     </Grid>
 </Page>

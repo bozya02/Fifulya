@@ -33,7 +33,12 @@ namespace Fifulya.Pages
 
         private void lvSales_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            NavigationService.Navigate(new SalePage(lvSales.SelectedItem as Sale));
+        }
 
+        private void btnAddSale_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new SalePage(new Sale()));
         }
     }
 }

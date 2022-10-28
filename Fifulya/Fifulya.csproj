@@ -88,6 +88,7 @@
     <Compile Include="DB\Sale.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\SalePartial.cs" />
     <Compile Include="DB\sysdiagram.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
     </Compile>
@@ -99,6 +100,9 @@
     </Compile>
     <Compile Include="Pages\RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SalePage.xaml.cs">
+      <DependentUpon>SalePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SalesPage.xaml.cs">
       <DependentUpon>SalesPage.xaml</DependentUpon>
@@ -169,6 +173,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\RegistrationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SalePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

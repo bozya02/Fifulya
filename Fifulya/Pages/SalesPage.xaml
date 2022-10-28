@@ -14,6 +14,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <Button x:Name="btnAddSale" Content="Новая покупка" HorizontalAlignment="Right" Click="btnAddSale_Click"/>
+
         <ListView x:Name="lvSales" ItemsSource="{Binding Sales}" Grid.Row="1" SelectionChanged="lvSales_SelectionChanged">
             <ListView.View>
                 <GridView>
@@ -37,6 +39,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
+                        <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Cost, StringFormat={}{0} руб.}"/>
                     </GridView.Columns>
                 </GridView>
             </ListView.View>

@@ -15,9 +15,9 @@ namespace Fifulya.DB
     public partial class ProductSale
     {
         public int Id { get; set; }
-        public Nullable<int> ProductId { get; set; }
-        public Nullable<int> SaleId { get; set; }
-        public Nullable<int> Count { get; set; }
+        public int ProductId { get; set; }
+        public int SaleId { get; set; }
+        public int Count { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual Sale Sale { get; set; }

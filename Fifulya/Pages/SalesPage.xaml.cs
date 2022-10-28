@@ -28,7 +28,14 @@ namespace Fifulya.Pages
 
             Sales = DataAccess.IsAdmin(App.Agent.User) ? DataAccess.GetSales() : DataAccess.GetSales(App.Agent);
 
+            DataAccess.NewItemAddedEvent += DataAccess_NewItemAddedEvent;
             this.DataContext = this;
+        }
+
+        private void DataAccess_NewItemAddedEvent()
+        {
+            lvSales.ItemsSource = DataAccess.IsAdmin(App.Agent.User) ? DataAccess.GetSales() : DataAccess.GetSales(App.Agent);
+            lvSales.Items.Refresh();
         }
 
         private void lvSales_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -38,7 +45,7 @@ namespace Fifulya.Pages
 
         private void btnAddSale_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new SalePage(new Sale()));
+            NavigationService.Navigate(new SalePage(new Sale(), true));
         }
     }
 }

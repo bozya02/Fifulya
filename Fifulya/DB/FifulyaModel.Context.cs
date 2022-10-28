@@ -27,12 +27,12 @@ namespace Fifulya.DB
     
         public virtual DbSet<Agent> Agents { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
-        public virtual DbSet<MaterialType> MaterialTypes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductMaterial> ProductMaterials { get; set; }
         public virtual DbSet<ProductSale> ProductSales { get; set; }
         public virtual DbSet<ProductType> ProductTypes { get; set; }
         public virtual DbSet<Sale> Sales { get; set; }
+        public virtual DbSet<State> States { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<User> Users { get; set; }

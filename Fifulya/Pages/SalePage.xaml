@@ -6,9 +6,56 @@
       xmlns:local="clr-namespace:Fifulya.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="SalePage">
+      Title="Новая покупка">
 
-    <Grid>
+    <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox Name="cbProducts" ItemsSource="{Binding Products}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <DatePicker Name="dpDate" SelectedDate="{Binding Sale.Date}" Grid.Column="1" FontSize="30" IsEnabled="False"/>
+
+            <Button x:Name="btnPay" Content="Оплатить" Grid.Column="2" VerticalAlignment="Center" Margin="10 0" Click="btnPay_Click"/>
+
+            <Button x:Name="btnSave" Content="Сохранить" Grid.Column="3" Click="btnSave_Click"/>
+        </Grid>
         
+        <ListView x:Name="lvProducts" ItemsSource="{Binding Sale.ProductSales}" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Product.Name}"/>
+                        <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Product.MinPrice, StringFormat={}0 руб.}"/>
+                        <GridViewColumn Header="Количество">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Count}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Cost, StringFormat={}0 руб.}"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <TextBlock Grid.Row="2" Margin="10" Text="{Binding Sale.Cost, StringFormat={}Итого: 0 руб.}"/>
     </Grid>
 </Page>

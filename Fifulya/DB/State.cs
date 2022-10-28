@@ -12,18 +12,18 @@ namespace Fifulya.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class MaterialType
+    public partial class State
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MaterialType()
+        public State()
         {
-            this.Materials = new HashSet<Material>();
+            this.Sales = new HashSet<Sale>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Material> Materials { get; set; }
+        public virtual ICollection<Sale> Sales { get; set; }
     }
 }

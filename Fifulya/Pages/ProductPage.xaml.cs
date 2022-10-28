@@ -100,6 +100,7 @@ namespace Fifulya.Pages
             }
             try
             {
+                Product.MinPrice = Product.ProductMaterials.Sum(m => m.Material.Price * m.MaterialQuantity);
                 DataAccess.SaveProduct(Product);
             }
             catch

@@ -40,6 +40,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Cost, StringFormat={}{0} руб.}"/>
+                        <GridViewColumn Header="Статус" DisplayMemberBinding="{Binding State.Name}"/>
                     </GridView.Columns>
                 </GridView>
             </ListView.View>

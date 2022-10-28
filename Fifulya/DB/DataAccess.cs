@@ -17,9 +17,9 @@ namespace Fifulya.DB
         public static List<Product> GetProducts() => FifulyaEntities.GetContext().Products.ToList().FindAll(x => !x.IsDeleted);
         public static List<ProductType> GetProductTypes() => FifulyaEntities.GetContext().ProductTypes.ToList();
         public static List<Material> GetMaterials() => FifulyaEntities.GetContext().Materials.ToList();
-        public static List<MaterialType> GetMaterialTypes() => FifulyaEntities.GetContext().MaterialTypes.ToList();
         public static List<Workshop> GetWorkshops() => FifulyaEntities.GetContext().Workshops.ToList();
         public static List<Sale> GetSales() => FifulyaEntities.GetContext().Sales.ToList();
+        public static List<State> GetStates() => FifulyaEntities.GetContext().States.ToList();
         public static List<Sale> GetSales(Agent agent) => FifulyaEntities.GetContext().Sales.ToList().FindAll(s => s.Agent == agent);
         public static List<User> GetUsers() => FifulyaEntities.GetContext().Users.ToList();
         public static List<Agent> GetAgents() => FifulyaEntities.GetContext().Agents.ToList();
@@ -57,11 +57,21 @@ namespace Fifulya.DB
 
         public static void SaveSale(Sale sale)
         {
+            
             if (sale.Id == 0)
+            {
+                sale.StateId = 1;
                 FifulyaEntities.GetContext().Sales.Add(sale);
+            }
 
             FifulyaEntities.GetContext().SaveChanges();
             NewItemAddedEvent?.Invoke();
+        }
+
+        public static void PaySale(Sale sale)
+        {
+            sale.StateId = 2;
+            SaveSale(sale);
         }
     }
 }

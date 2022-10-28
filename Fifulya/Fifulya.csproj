@@ -81,14 +81,19 @@
     <Compile Include="DB\Agent.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\MaterialPartial.cs" />
     <Compile Include="DB\ProductPartial.cs" />
     <Compile Include="DB\ProductSale.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\ProductSalePartial.cs" />
     <Compile Include="DB\Sale.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\SalePartial.cs" />
+    <Compile Include="DB\State.cs">
+      <DependentUpon>FifulyaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\sysdiagram.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
     </Compile>
@@ -136,9 +141,6 @@
       <DependentUpon>FifulyaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DB\Material.cs">
-      <DependentUpon>FifulyaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\MaterialType.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Product.cs">

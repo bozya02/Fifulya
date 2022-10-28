@@ -80,6 +80,7 @@
         </ListView>
         <ComboBox x:Name="cbMaterial" Grid.Column="1" Grid.Row="4" ItemsSource="{Binding Materials}"
                   IsTextSearchEnabled="False" IsEditable="True"
+                  FontSize="24"
                   TextBoxBase.TextChanged="cbMaterial_TextChanged"
                   SelectionChanged="cbMaterial_SelectionChanged"
                   materialDesign:HintAssist.Hint="Материал"

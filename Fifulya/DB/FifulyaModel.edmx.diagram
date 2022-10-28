@@ -5,21 +5,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="969f4e110a0a4810ab6982d301d47df7" Name="Diagram1">
-        <EntityTypeShape EntityType="FifulyaModel.Agent" Width="1.5" PointX="0.75" PointY="12.75" />
-        <EntityTypeShape EntityType="FifulyaModel.Material" Width="1.5" PointX="3" PointY="8.125" />
-        <EntityTypeShape EntityType="FifulyaModel.MaterialType" Width="1.5" PointX="0.75" PointY="10.125" />
+        <EntityTypeShape EntityType="FifulyaModel.Agent" Width="1.5" PointX="0.75" PointY="10.25" />
+        <EntityTypeShape EntityType="FifulyaModel.Material" Width="1.5" PointX="3" PointY="16.75" />
         <EntityTypeShape EntityType="FifulyaModel.Product" Width="1.5" PointX="3" PointY="3" />
-        <EntityTypeShape EntityType="FifulyaModel.ProductMaterial" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="FifulyaModel.ProductSale" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="FifulyaModel.ProductMaterial" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="FifulyaModel.ProductSale" Width="1.5" PointX="5.25" PointY="0.75" />
         <EntityTypeShape EntityType="FifulyaModel.ProductType" Width="1.5" PointX="0.75" PointY="4" />
-        <EntityTypeShape EntityType="FifulyaModel.Sale" Width="1.5" PointX="3" PointY="12.875" />
+        <EntityTypeShape EntityType="FifulyaModel.Sale" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="FifulyaModel.State" Width="1.5" PointX="0.75" PointY="8" />
         <EntityTypeShape EntityType="FifulyaModel.sysdiagram" Width="1.5" PointX="5.75" PointY="7" />
-        <EntityTypeShape EntityType="FifulyaModel.Unit" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="FifulyaModel.User" Width="1.5" PointX="1.5" PointY="16" />
+        <EntityTypeShape EntityType="FifulyaModel.Unit" Width="1.5" PointX="0.75" PointY="17" />
+        <EntityTypeShape EntityType="FifulyaModel.User" Width="1.5" PointX="1.5" PointY="13.5" />
         <EntityTypeShape EntityType="FifulyaModel.Workshop" Width="1.5" PointX="0.75" PointY="1" />
         <AssociationConnector Association="FifulyaModel.FK_Agent_User" />
         <AssociationConnector Association="FifulyaModel.FK_Sale_Agent" />
-        <AssociationConnector Association="FifulyaModel.FK_Material_MaterialType" />
         <AssociationConnector Association="FifulyaModel.FK_Material_Unit" />
         <AssociationConnector Association="FifulyaModel.FK_ProductMaterial_Material" />
         <AssociationConnector Association="FifulyaModel.FK_Product_ProductType" />
@@ -27,6 +26,7 @@
         <AssociationConnector Association="FifulyaModel.FK_ProductMaterial_Product" />
         <AssociationConnector Association="FifulyaModel.FK_ProductSale_Product" />
         <AssociationConnector Association="FifulyaModel.FK_ProductSale_Sale" />
+        <AssociationConnector Association="FifulyaModel.FK_Sale_State" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

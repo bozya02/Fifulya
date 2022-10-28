@@ -20,19 +20,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="MaterialTypeId" Type="int" />
-          <Property Name="QuantityInPackage" Type="int" />
           <Property Name="UnitId" Type="int" />
-          <Property Name="QuantityInStock" Type="int" />
-          <Property Name="MinRemainder" Type="int" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
-        </EntityType>
-        <EntityType Name="MaterialType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -56,7 +45,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="MaterialId" Type="int" Nullable="false" />
-          <Property Name="MaterialQuantity" Type="int" />
+          <Property Name="MaterialQuantity" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductSale">
           <Key>
@@ -81,6 +70,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="date" />
           <Property Name="AgentId" Type="int" />
+          <Property Name="StateId" Type="int" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -123,18 +120,6 @@
             </Principal>
             <Dependent Role="Agent">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Material_MaterialType">
-          <End Role="MaterialType" Type="Self.MaterialType" Multiplicity="0..1" />
-          <End Role="Material" Type="Self.Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaterialType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Material">
-              <PropertyRef Name="MaterialTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -234,15 +219,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sale_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="FifulyaModelStoreContainer">
           <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MaterialType" EntityType="Self.MaterialType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductMaterial" EntityType="Self.ProductMaterial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductSale" EntityType="Self.ProductSale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -250,10 +247,6 @@
           <AssociationSet Name="FK_Agent_User" Association="Self.FK_Agent_User">
             <End Role="User" EntitySet="User" />
             <End Role="Agent" EntitySet="Agent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Material_MaterialType" Association="Self.FK_Material_MaterialType">
-            <End Role="MaterialType" EntitySet="MaterialType" />
-            <End Role="Material" EntitySet="Material" />
           </AssociationSet>
           <AssociationSet Name="FK_Material_Unit" Association="Self.FK_Material_Unit">
             <End Role="Unit" EntitySet="Unit" />
@@ -287,6 +280,10 @@
             <End Role="Agent" EntitySet="Agent" />
             <End Role="Sale" EntitySet="Sale" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sale_State" Association="Self.FK_Sale_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -295,12 +292,12 @@
         <EntityContainer Name="FifulyaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Agents" EntityType="FifulyaModel.Agent" />
           <EntitySet Name="Materials" EntityType="FifulyaModel.Material" />
-          <EntitySet Name="MaterialTypes" EntityType="FifulyaModel.MaterialType" />
           <EntitySet Name="Products" EntityType="FifulyaModel.Product" />
           <EntitySet Name="ProductMaterials" EntityType="FifulyaModel.ProductMaterial" />
           <EntitySet Name="ProductSales" EntityType="FifulyaModel.ProductSale" />
           <EntitySet Name="ProductTypes" EntityType="FifulyaModel.ProductType" />
           <EntitySet Name="Sales" EntityType="FifulyaModel.Sale" />
+          <EntitySet Name="States" EntityType="FifulyaModel.State" />
           <EntitySet Name="sysdiagrams" EntityType="FifulyaModel.sysdiagram" />
           <EntitySet Name="Units" EntityType="FifulyaModel.Unit" />
           <EntitySet Name="Users" EntityType="FifulyaModel.User" />
@@ -312,10 +309,6 @@
           <AssociationSet Name="FK_Sale_Agent" Association="FifulyaModel.FK_Sale_Agent">
             <End Role="Agent" EntitySet="Agents" />
             <End Role="Sale" EntitySet="Sales" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Material_MaterialType" Association="FifulyaModel.FK_Material_MaterialType">
-            <End Role="MaterialType" EntitySet="MaterialTypes" />
-            <End Role="Material" EntitySet="Materials" />
           </AssociationSet>
           <AssociationSet Name="FK_Material_Unit" Association="FifulyaModel.FK_Material_Unit">
             <End Role="Unit" EntitySet="Units" />
@@ -345,6 +338,10 @@
             <End Role="Sale" EntitySet="Sales" />
             <End Role="ProductSale" EntitySet="ProductSales" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sale_State" Association="FifulyaModel.FK_Sale_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="Sale" EntitySet="Sales" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Agent">
           <Key>
@@ -363,23 +360,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaterialTypeId" Type="Int32" />
-          <Property Name="QuantityInPackage" Type="Int32" />
           <Property Name="UnitId" Type="Int32" />
-          <Property Name="QuantityInStock" Type="Int32" />
-          <Property Name="MinRemainder" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="MaterialType" Relationship="FifulyaModel.FK_Material_MaterialType" FromRole="Material" ToRole="MaterialType" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="Unit" Relationship="FifulyaModel.FK_Material_Unit" FromRole="Material" ToRole="Unit" />
           <NavigationProperty Name="ProductMaterials" Relationship="FifulyaModel.FK_ProductMaterial_Material" FromRole="Material" ToRole="ProductMaterial" />
-        </EntityType>
-        <EntityType Name="MaterialType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Materials" Relationship="FifulyaModel.FK_Material_MaterialType" FromRole="MaterialType" ToRole="Material" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -407,7 +391,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="MaterialId" Type="Int32" Nullable="false" />
-          <Property Name="MaterialQuantity" Type="Int32" />
+          <Property Name="MaterialQuantity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Material" Relationship="FifulyaModel.FK_ProductMaterial_Material" FromRole="ProductMaterial" ToRole="Material" />
           <NavigationProperty Name="Product" Relationship="FifulyaModel.FK_ProductMaterial_Product" FromRole="ProductMaterial" ToRole="Product" />
         </EntityType>
@@ -437,8 +421,18 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="AgentId" Type="Int32" />
+          <Property Name="StateId" Type="Int32" />
           <NavigationProperty Name="Agent" Relationship="FifulyaModel.FK_Sale_Agent" FromRole="Sale" ToRole="Agent" />
           <NavigationProperty Name="ProductSales" Relationship="FifulyaModel.FK_ProductSale_Sale" FromRole="Sale" ToRole="ProductSale" />
+          <NavigationProperty Name="State" Relationship="FifulyaModel.FK_Sale_State" FromRole="Sale" ToRole="State" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sales" Relationship="FifulyaModel.FK_Sale_State" FromRole="State" ToRole="Sale" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -496,18 +490,6 @@
             </Principal>
             <Dependent Role="Sale">
               <PropertyRef Name="AgentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Material_MaterialType">
-          <End Type="FifulyaModel.MaterialType" Role="MaterialType" Multiplicity="0..1" />
-          <End Type="FifulyaModel.Material" Role="Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaterialType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Material">
-              <PropertyRef Name="MaterialTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -595,6 +577,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sale_State">
+          <End Type="FifulyaModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="FifulyaModel.Sale" Role="Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -615,19 +609,7 @@
             <EntityTypeMapping TypeName="FifulyaModel.Material">
               <MappingFragment StoreEntitySet="Material">
                 <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="MinRemainder" ColumnName="MinRemainder" />
-                <ScalarProperty Name="QuantityInStock" ColumnName="QuantityInStock" />
                 <ScalarProperty Name="UnitId" ColumnName="UnitId" />
-                <ScalarProperty Name="QuantityInPackage" ColumnName="QuantityInPackage" />
-                <ScalarProperty Name="MaterialTypeId" ColumnName="MaterialTypeId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MaterialTypes">
-            <EntityTypeMapping TypeName="FifulyaModel.MaterialType">
-              <MappingFragment StoreEntitySet="MaterialType">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -680,8 +662,17 @@
           <EntitySetMapping Name="Sales">
             <EntityTypeMapping TypeName="FifulyaModel.Sale">
               <MappingFragment StoreEntitySet="Sale">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="AgentId" ColumnName="AgentId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="FifulyaModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

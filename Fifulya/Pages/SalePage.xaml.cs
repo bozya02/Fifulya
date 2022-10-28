@@ -22,10 +22,39 @@ namespace Fifulya.Pages
     public partial class SalePage : Page
     {
         public Sale Sale { get; set; }
-        public SalePage(Sale sale)
+
+        public List<Product> Products { get; set; }
+        public List<State> States { get; set; }
+
+        public SalePage(Sale sale, bool isNewSale = false)
         {
             InitializeComponent();
             Sale = sale;
+            Products = DataAccess.GetProducts();
+            States = DataAccess.GetStates();
+
+            btnPay.Visibility = Sale.IsDraft ? Visibility.Visible : Visibility.Hidden;
+            grid.IsEnabled = isNewSale || Sale.IsDraft;
+
+            this.DataContext = this;
+        }
+
+        private void btnPay_Click(object sender, RoutedEventArgs e)
+        {
+            DataAccess.PaySale(Sale);
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DataAccess.SaveSale(Sale);
+                NavigationService.GoBack();
+            }
+            catch
+            {
+                MessageBox.Show("Что-то пошло не так", "Ошибка");
+            }
         }
     }
 }

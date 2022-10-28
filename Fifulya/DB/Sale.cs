@@ -23,9 +23,11 @@ namespace Fifulya.DB
         public int Id { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> AgentId { get; set; }
+        public Nullable<int> StateId { get; set; }
     
         public virtual Agent Agent { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductSale> ProductSales { get; set; }
+        public virtual State State { get; set; }
     }
 }

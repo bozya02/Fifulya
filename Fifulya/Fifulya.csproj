@@ -94,9 +94,6 @@
     <Compile Include="DB\State.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\sysdiagram.cs">
-      <DependentUpon>FifulyaModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\User.cs">
       <DependentUpon>FifulyaModel.tt</DependentUpon>
     </Compile>

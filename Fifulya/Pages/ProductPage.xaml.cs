@@ -64,15 +64,22 @@ namespace Fifulya.Pages
 
         private void lvMaterials_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var material = lvMaterials.SelectedItem as ProductMaterial;
+            try
+            {
+                var material = lvMaterials.SelectedItem as ProductMaterial;
 
-            var result = MessageBox.Show($"Вы точно хотите убрать {material.Material.Name}?", "Внимание", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
-            if (result != MessageBoxResult.Yes)
-                return;
-            Product.ProductMaterials.Remove(material);
+                var result = MessageBox.Show($"Вы точно хотите убрать {material.Material.Name}?", "Внимание", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+                if (result != MessageBoxResult.Yes)
+                    return;
+                Product.ProductMaterials.Remove(material);
 
-            lvMaterials.ItemsSource = Product.ProductMaterials;
-            lvMaterials.Items.Refresh();
+                lvMaterials.ItemsSource = Product.ProductMaterials;
+                lvMaterials.Items.Refresh();
+            }
+            catch
+            {
+
+            }
         }
 
         private void btnAddImage_Click(object sender, RoutedEventArgs e)

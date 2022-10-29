@@ -73,5 +73,12 @@ namespace Fifulya.DB
             sale.StateId = 2;
             SaveSale(sale);
         }
+
+        public static void DeleteProductSale(ProductSale productSale)
+        {
+            FifulyaEntities.GetContext().ProductSales.Remove(productSale);
+            FifulyaEntities.GetContext().SaveChanges();
+            NewItemAddedEvent?.Invoke();
+        }
     }
 }

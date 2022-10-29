@@ -56,5 +56,31 @@ namespace Fifulya.Pages
                 MessageBox.Show("Что-то пошло не так", "Ошибка");
             }
         }
+
+        private void cbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var product = cbProducts.SelectedItem as Product;
+            Sale.ProductSales.Add(new ProductSale
+            {
+                Sale = Sale,
+                Product = product
+            });
+
+            lvProducts.ItemsSource = Sale.ProductSales;
+            lvProducts.Items.Refresh();
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var productSale = (sender as Button).DataContext as ProductSale;
+            Sale.ProductSales.Remove(productSale);
+            try
+            {
+                DataAccess.DeleteProductSale(productSale);
+            }
+            catch { }
+            lvProducts.ItemsSource = Sale.ProductSales;
+            lvProducts.Items.Refresh();
+        }
     }
 }

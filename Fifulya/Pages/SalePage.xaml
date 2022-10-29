@@ -23,7 +23,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <ComboBox Name="cbProducts" ItemsSource="{Binding Products}">
+            <ComboBox Name="cbProducts" ItemsSource="{Binding Products}" SelectionChanged="cbProducts_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
@@ -46,11 +46,18 @@
                         <GridViewColumn Header="Количество">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Count}"/>
+                                    <TextBox x:Name="tbCount" Text="{Binding Count}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Cost, StringFormat={}{0} руб.}"/>
+                        <GridViewColumn Header="Удалить">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="btnDelete" Content="╳" Click="btnDelete_Click"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView.Columns>
                 </GridView>
             </ListView.View>

@@ -21,7 +21,7 @@ namespace Fifulya.Pages
     /// </summary>
     public partial class ProductsListPage : Page
     {
-        const int productOnPage = 20;
+        const int productOnPage = 5;
         public int PageNumber { get; set; } = 1;
 
         public List<Product> Products { get; set; }

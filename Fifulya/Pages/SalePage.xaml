@@ -19,6 +19,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -32,9 +33,10 @@
             </ComboBox>
             <DatePicker Name="dpDate" SelectedDate="{Binding Sale.Date}" Grid.Column="1" FontSize="30" IsEnabled="False"/>
 
-            <Button x:Name="btnPay" Content="Оплатить" Grid.Column="2" VerticalAlignment="Center" Margin="10 0" Click="btnPay_Click"/>
+            <TextBlock Text="{Binding Agent.Balance, StringFormat={}Баланс: {0} руб. }" Grid.Column="2" VerticalAlignment="Center" Margin="10 0"/>
+            <Button x:Name="btnPay" Content="Оплатить" Grid.Column="3" VerticalAlignment="Center" Margin="10 0" Click="btnPay_Click"/>
 
-            <Button x:Name="btnSave" Content="Сохранить" Grid.Column="3" Click="btnSave_Click"/>
+            <Button x:Name="btnSave" Content="Сохранить" Grid.Column="4" Click="btnSave_Click"/>
         </Grid>
         
         <ListView x:Name="lvProducts" ItemsSource="{Binding Sale.ProductSales}" Grid.Row="1">
@@ -46,7 +48,7 @@
                         <GridViewColumn Header="Количество">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox x:Name="tbCount" Text="{Binding Count}"/>
+                                    <TextBox x:Name="tbCount" Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" LostFocus="tbCount_LostFocus"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -63,6 +65,10 @@
             </ListView.View>
         </ListView>
 
-        <TextBlock Grid.Row="2" Margin="10" Text="{Binding Sale.Cost, StringFormat={}Итого: {0} руб.}"/>
+        <TextBlock x:Name="tbCost" Grid.Row="2" Margin="10" >
+            <Run Text="Итого:"/>
+            <Run x:Name="runCost" Text="{Binding Sale.Cost}"/>
+            <Run Text="руб."/>
+        </TextBlock>
     </Grid>
 </Page>

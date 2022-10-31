@@ -24,6 +24,7 @@ namespace Fifulya.DB
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Nullable<int> UserId { get; set; }
+        public decimal Balance { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,6 +1,7 @@
 ﻿using Fifulya.DB;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Fifulya.Pages
     public partial class SalePage : Page
     {
         public Sale Sale { get; set; }
-
+        public Agent Agent { get; set; }
         public List<Product> Products { get; set; }
         public List<State> States { get; set; }
 
@@ -36,11 +37,17 @@ namespace Fifulya.Pages
             btnPay.Visibility = Sale.IsDraft ? Visibility.Visible : Visibility.Hidden;
             grid.IsEnabled = isNewSale || Sale.IsDraft;
 
+            Agent = App.Agent;
             this.DataContext = this;
         }
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
+            if ((double)Agent.Balance < Sale.Cost)
+            {
+                MessageBox.Show("Недостаточно баланса", "Ошибка");
+                return;
+            }
             DataAccess.PaySale(Sale);
         }
 
@@ -79,8 +86,15 @@ namespace Fifulya.Pages
                 DataAccess.DeleteProductSale(productSale);
             }
             catch { }
+
             lvProducts.ItemsSource = Sale.ProductSales;
             lvProducts.Items.Refresh();
+        }
+
+        private void tbCount_LostFocus(object sender, RoutedEventArgs e)
+        {
+            lvProducts.Items.Refresh();
+            runCost.Text = Sale.Cost.ToString();
         }
     }
 }

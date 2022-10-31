@@ -9,7 +9,11 @@ namespace Fifulya.DB
 {
     public partial class Sale
     {
-        public double Cost => ProductSales.Sum(x => x.Cost);
+        public double Cost
+        {
+            get { return ProductSales.Sum(x => x.Cost); }
+            set { }
+        }
         public bool IsDraft => State != null && State.Name.ToLower().Contains("черновик");
     }
 }

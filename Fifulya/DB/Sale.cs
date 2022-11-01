@@ -17,6 +17,7 @@ namespace Fifulya.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sale()
         {
+            Date = DateTime.Now;
             this.ProductSales = new HashSet<ProductSale>();
         }
     

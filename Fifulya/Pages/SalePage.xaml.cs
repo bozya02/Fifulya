@@ -27,6 +27,7 @@ namespace Fifulya.Pages
         public List<Product> Products { get; set; }
         public List<State> States { get; set; }
 
+
         public SalePage(Sale sale, bool isNewSale = false)
         {
             InitializeComponent();
@@ -34,7 +35,13 @@ namespace Fifulya.Pages
             Products = DataAccess.GetProducts();
             States = DataAccess.GetStates();
 
-            btnPay.Visibility = Sale.IsDraft ? Visibility.Visible : Visibility.Hidden;
+            try
+            {
+                btnPay.Visibility = Sale.IsDraft ? Visibility.Visible : Visibility.Hidden;
+            }
+            catch { }
+
+            
             grid.IsEnabled = isNewSale || Sale.IsDraft;
 
             Agent = App.Agent;
@@ -48,7 +55,9 @@ namespace Fifulya.Pages
                 MessageBox.Show("Недостаточно баланса", "Ошибка");
                 return;
             }
+            Agent.Balance -= (decimal)Sale.Cost;
             DataAccess.PaySale(Sale);
+            NavigationService.GoBack();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

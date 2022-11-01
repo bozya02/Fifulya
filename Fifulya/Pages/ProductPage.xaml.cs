@@ -72,7 +72,7 @@ namespace Fifulya.Pages
                 if (result != MessageBoxResult.Yes)
                     return;
                 Product.ProductMaterials.Remove(material);
-
+                DataAccess.DeleteProductMaterial(material);
                 lvMaterials.ItemsSource = Product.ProductMaterials;
                 lvMaterials.Items.Refresh();
             }

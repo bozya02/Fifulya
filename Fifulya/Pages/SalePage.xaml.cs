@@ -64,6 +64,7 @@ namespace Fifulya.Pages
         {
             try
             {
+                Sale.Agent = Agent;
                 DataAccess.SaveSale(Sale);
                 NavigationService.GoBack();
             }
